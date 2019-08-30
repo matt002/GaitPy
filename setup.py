@@ -7,7 +7,7 @@ def requirements():
 setuptools.setup(name='gaitpy',
                  version='1.0',
                  description='Read and process raw vertical accelerometry data from a lumbar sensor during gait; calculate clinical gait characteristics.',
-                 url='http://github.com/PfizerRD/gaitpy',
+                 url='http://github.com/matt002/gaitpy',
                  packages=setuptools.find_packages(),
                  author='Matthew Czech',
                  author_email='czech1117@gmail.com',
