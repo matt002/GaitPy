@@ -20,7 +20,7 @@ pip install gaitpy
 You can also install it from source:
 
 ```sh
-git clone https://github.com/PfizerRD/gaitpy
+git clone https://github.com/matt002/gaitpy
 cd gaitpy
 python setup.py install
 ```
@@ -68,7 +68,6 @@ gait_bouts = gaitpy.classify_bouts(result_file='/my/folder/classified_gait.h5') 
 #### Extract gait characteristics ####
 gait_features = gaitpy.extract_features(subject_height,                               # Subject height
                                         subject_height_units='centimeter',            # Units of subject height
-                                        sensor_height_ratio=0.53,                     # Height of sensor relative to subject height
                                         result_file='/my/folder/gait_features.csv',   # File to save results to (None by default)
                                         classified_gait=gait_bouts)                   # Pandas Dataframe or .h5 file results of classify_bouts function (None by default)
 
