@@ -87,16 +87,12 @@ Step 2: Strides with stance times exceeding 70% of the maximal stride time of 2.
 Step 3: Strides with an initial double support that exceed 20% of the maximal stride time of 2.25 seconds are removed. [@Hollman2011]
 
 # Availability
-The software is available as a pip installable package, as well as on GitHub at: https://github.com/PfizerRD/gaitpy
+The software is available as a pip installable package, as well as on GitHub at: https://github.com/matt002/gaitpy
 
 # Acknowledgements
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
-
-References (will be inserted by the journal from the .bib file)
 
 # License
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 # References
-
-
