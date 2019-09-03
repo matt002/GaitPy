@@ -5,10 +5,10 @@ def requirements():
         return [x for x in fh.read().split('\n') if x]
 
 setuptools.setup(name='gaitpy',
-                 version='1.0',
+                 version='1.1',
                  description='Read and process raw vertical accelerometry data from a lumbar sensor during gait; calculate clinical gait characteristics.',
                  url='http://github.com/matt002/gaitpy',
-                 packages=setuptools.find_packages(),
+                 packages=['gaitpy'],
                  author='Matthew Czech',
                  author_email='czech1117@gmail.com',
                  keywords=['gait', 'lumbar', 'sensor', 'digital', 'wearable', 'python', 'inverted pendulum', 'czech'],
