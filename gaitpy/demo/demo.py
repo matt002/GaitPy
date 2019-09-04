@@ -1,9 +1,11 @@
-def run_gaitpy(src, sample_rate, subject_height, dst):
-    import os
-    import pandas as pd
-    import numpy as np
-    from gaitpy.gait import Gaitpy
+import os
+import pandas as pd
+from pandas.util.testing import assert_frame_equal
+import numpy as np
+import time
+from gaitpy.gait import *
 
+def run_gaitpy(src, sample_rate, subject_height, dst):
     # Load/format data
     raw_data = pd.read_csv(src, skiprows=99, names=['timestamps', 'x', 'y', 'z'], usecols=[0, 1, 2, 3])
     raw_data['unix_timestamps'] = pd.to_datetime(raw_data.timestamps, format="%Y-%m-%d %H:%M:%S:%f").values.astype(np.int64) // 10**6
@@ -30,11 +32,6 @@ def run_gaitpy(src, sample_rate, subject_height, dst):
     gaitpy.plot_contacts(gait_features, result_file=os.path.join(dst, 'plot_contacts.html'), show_plot=False)
 
 def run_demo():
-    import os
-    import time
-    import pandas as pd
-    from pandas.util.testing import assert_frame_equal
-
     # Set source and destination directories
     src = os.getcwd() + '/demo_data.csv'
     dst = raw_input("Please provide a path to a results directory:    ")
