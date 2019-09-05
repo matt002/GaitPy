@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 import numpy as np
 import time
 from gaitpy.gait import *
@@ -33,7 +35,7 @@ def run_gaitpy(src, sample_rate, subject_height, dst):
 
 def run_demo():
     # Set source and destination directories
-    src = os.getcwd() + '/demo_data.csv'
+    src = __file__.split(".py")[0] + "_data.csv"
     dst = raw_input("Please provide a path to a results directory:    ")
     while not os.path.isdir(dst):
         dst = raw_input(
