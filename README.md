@@ -86,7 +86,7 @@ You may run the demo directly from a terminal window:
 
 ```sh
 cd gaitpy/demo
-python run_demo.py
+python demo.py
 ```
 
 You may also run the demo via a python interpreter. In a terminal window start python by typing:
@@ -98,7 +98,7 @@ python
 In the interpreter window you can then import and run the demo with the following two commands:
 
 ```sh
-import gaitpy.demo as demo
+from gaitpy.demo import demo
 demo.run_demo()
 ```
 
