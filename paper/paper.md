@@ -1,24 +1,24 @@
 ---
 title: 'GaitPy: An Open-Source Python Package for Gait Analysis Using an Accelerometer on the Lower Back'
 tags:
-  -	Python
-  -	GaitPy
-  -	Accelerometer
-  -	Actigraphy
-  -	Algorithms
-  -	Lumbar
-  -	Gait
-  -	Digital Medicine
-  -	Wearable Sensors
+  - Python
+  - GaitPy
+  - Accelerometer
+  - Actigraphy
+  - Algorithms
+  - Lumbar
+  - Gait
+  - Digital Medicine
+  - Wearable Sensors
 authors:
-  -	name: Matthew D. Czech 
+  - name: Matthew D. Czech 
     orcid: 0000-0001-9954-7003 
     affiliation: 1
-  -	name: Shyamal Patel
+  - name: Shyamal Patel
     orcid: 0000-0002-4369-3033
     affiliation: 1
 affiliations:
-  -	name: Pfizer, Inc.
+  - name: Pfizer, Inc.
     index: 1
 date: 25 July 2019
 bibliography: paper.bib
