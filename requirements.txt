@@ -4,3 +4,6 @@ pandas==0.20.3
 scipy==1.2.0
 numpy==1.13.3
 PyWavelets==0.5.2
+scikit-learn==0.18.2
+dill==0.2.7.1
+statsmodels==0.8.0

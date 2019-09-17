@@ -305,7 +305,7 @@ def _load_data(self, down_sample):
 
 def _extract_signal_features(data, timestamps, sample_rate, window_length=3.0):
     import pandas as pd
-    import signal_features as sf
+    from . import signal_features as sf
     import warnings
 
     data.reset_index(drop=True, inplace=True)

@@ -13,9 +13,6 @@ def _signal_features(window_data_df, channels, fs):
     # Compute range
     feat_df_signal_range = _signal_range(window_data_df, channels)
 
-    # Compute IQR of Autocovariance
-    feat_df_iqr_auto = _iqr_of_autocovariance(window_data_df, channels)
-
     # Compute Dominant Frequency
     sampling_rate = fs
     frequncy_cutoff = 12.0
@@ -27,7 +24,6 @@ def _signal_features(window_data_df, channels, fs):
     features = features.join(feat_df_signal_entropy, how='outer')
     features = features.join(feat_df_signal_rms, how='outer')
     features = features.join(feat_df_signal_range, how='outer')
-    features = features.join(feat_df_iqr_auto, how='outer')
     features = features.join(feat_df_dom_freq, how='outer')
     features = features.join(feat_df_mean_cross_rate, how='outer')
 
@@ -85,18 +81,6 @@ def _signal_range(signal_df, channels):
 
     return range_df
 
-def _iqr_of_autocovariance(signal_df, channels):
-    from scipy import stats
-    from statsmodels.tsa.stattools import acf
-
-    autocov_range_df = pd.DataFrame()
-    n_samples = signal_df.shape[0]
-    for channel in channels:
-        current_autocov_iqr = stats.iqr(acf(signal_df[channel], unbiased=True, nlags=n_samples/2))
-        autocov_range_df[channel + '_iqr_of_autocovariance'] = [current_autocov_iqr]
-
-    return autocov_range_df
-
 def _dominant_frequency(signal_df, sampling_rate, cutoff, channels):
     from scipy import stats
 
@@ -109,14 +93,14 @@ def _dominant_frequency(signal_df, sampling_rate, cutoff, channels):
         nfft = 2 ** ((dim[0] * padfactor).bit_length())
 
         freq_hat = np.fft.fftfreq(nfft) * sampling_rate
-        freq = freq_hat[0:nfft / 2]
+        freq = freq_hat[0:nfft // 2]
 
         idx1 = freq <= cutoff
         idx_cutoff = np.argwhere(idx1)
         freq = freq[idx_cutoff]
 
         sp_hat = np.fft.fft(signal_x, nfft)
-        sp = sp_hat[0:nfft / 2] * np.conjugate(sp_hat[0:nfft / 2])
+        sp = sp_hat[0:nfft // 2] * np.conjugate(sp_hat[0:nfft // 2])
         sp = sp[idx_cutoff]
         sp_norm = sp / sum(sp)
 
@@ -173,17 +157,6 @@ def _mean_cross_rate(signal_df, channels):
         mean_cross_rate_df[channel + '_mean_cross_rate'] = [MCR]
 
     return mean_cross_rate_df
-
-def _range_count_percentage(signal_df, channels, min_value=-1, max_value=1):
-    import tsfresh as tsf
-
-    range_count_df = pd.DataFrame()
-    for channel in channels:
-        signal_x = signal_df[channel]
-        current_range_count = tsf.feature_extraction.feature_calculators.range_count(signal_x, min_value, max_value) * 1.0 / len(signal_x)
-        range_count_df[channel + '_range_count_per'] = [current_range_count]
-
-    return range_count_df
 
 def _histogram(signal_x):
     descriptor = np.zeros(3)
