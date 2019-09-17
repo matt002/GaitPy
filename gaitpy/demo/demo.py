@@ -36,9 +36,9 @@ def run_gaitpy(src, sample_rate, subject_height, dst):
 def run_demo():
     # Set source and destination directories
     src = __file__.split(".py")[0] + "_data.csv"
-    dst = raw_input("Please provide a path to a results directory:    ")
+    dst = input("Please provide a path to a results directory:    ")
     while not os.path.isdir(dst):
-        dst = raw_input(
+        dst = input(
             "\nYour previous entry was not appropriate."
             "\nIt should follow a format similar to /Users/username/Desktop/Results"
             "\nPlease provide a path to a results directory:    "

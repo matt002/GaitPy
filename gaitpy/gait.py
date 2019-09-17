@@ -90,7 +90,7 @@ class Gaitpy():
 
         '''
         import pandas as pd
-        import util
+        import gaitpy.util as util
         import warnings
 
         print('\tExtracting features...')
@@ -203,7 +203,7 @@ class Gaitpy():
         from bokeh.plotting import figure, output_file, save, show
         from bokeh.models import Legend, Span
         import pandas as pd
-        import util
+        import gaitpy.util as util
         import numpy as np
 
         print('\tPlotting contacts...')
@@ -322,7 +322,7 @@ class Gaitpy():
         import pandas as pd
         import os
         import deepdish as dd
-        import util
+        import gaitpy.util as util
 
         print('\tClassifying bouts of gait...')
 

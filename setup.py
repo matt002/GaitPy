@@ -5,7 +5,7 @@ def requirements():
         return [x for x in fh.read().split('\n') if x]
 
 setuptools.setup(name='gaitpy',
-                 version='1.2',
+                 version='1.3',
                  description='Read and process raw vertical accelerometry data from a lumbar sensor during gait; calculate clinical gait characteristics.',
                  url='http://github.com/PfizerRD/gaitpy',
                  packages=setuptools.find_packages(),
