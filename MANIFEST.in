@@ -1,6 +1,8 @@
 include README.md
 include requirements.txt
 include LICENSE
+include gaitpy/model/model.pkl
+include gaitpy/model/feature_order.txt
 include gaitpy/demo/demo_classify_bouts.h5
 include gaitpy/demo/demo_data.csv
 include gaitpy/demo/demo_plot_contacts.html
