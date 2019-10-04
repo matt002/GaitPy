@@ -22,4 +22,5 @@ setuptools.setup(name='gaitpy',
                  license='MIT',
                  zip_safe=False,
                  install_requires=requirements(),
+                 setup_requires=["numpy==1.13.3"],
                  include_package_data=True)
