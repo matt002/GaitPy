@@ -7,3 +7,4 @@ include gaitpy/demo/demo_classify_bouts.h5
 include gaitpy/demo/demo_data.csv
 include gaitpy/demo/demo_plot_contacts.html
 include gaitpy/demo/demo.py
+include gaitpy/demo/demo_gait_features.csv
