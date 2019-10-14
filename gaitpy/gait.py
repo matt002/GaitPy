@@ -1,49 +1,41 @@
 class Gaitpy():
-    ''' Gait feature extraction and bout classification from single accelerometer in the lumbar location
+    '''
+    Gait feature extraction and bout classification from single accelerometer in the lumbar location. This class includes functions for:
 
-    Using vertical acceleration data from the lumbar location, this class includes functions for:
-        - Continuous wavelet based method of gait kinematic feature extraction.
-        - Machine learning based method of bout classification.
+    - Continuous wavelet based method of gait kinematic feature extraction.
+    - Machine learning based method of bout classification.
+    - Visualizing results.
 
-    Parameters
-    ----------
-    data : str or pandas.core.frame.DataFrame
-        Pandas dataframe containing timestamp column and vertical acceleration data during gait, both of type float
-        OR
-        File path of .csv file containing timestamp column and vertical acceleration data during gait
-            - One column should contain unix timestamps of type float -- by default gaitpy will assume the column title is
-                                                                         'timestamps' with units in milliseconds
-            - A second column should be vertical acceleration of type float -- by default gaitpy will assume the column
-                                                                               title is 'y' with units in m/s^2
+    data: str or pandas.core.frame.DataFrame
+        - Option 1: Pandas dataframe containing unix timestamp column and vertical acceleration data during gait, both of type float
+        - Option 2: File path of .csv file containing timestamp column and vertical acceleration data during gait. One column should contain unix timestamps of type float -- by default gaitpy will assume the column title is 'timestamps' with units in milliseconds. A second column should be vertical acceleration of type float -- by default gaitpy will assume the column title is 'y' with units in m/s^2.
 
-    sample_rate : int or float
+    sample_rate: int or float
         Sampling rate of accelerometer data in Hertz.
 
-    v_acc_col_name : str
+    v_acc_col_name: str
         Column name of the vertical acceleration data ('y' by default)
 
-    ts_col_name : str
+    ts_col_name: str
         Column name of the timestamps ('timestamps' by default)
 
-    v_acc_units : str
-        Units of vertical acceleration data ('m/s^2' by default)
-        Options:
-            - 'm/s^2' = meters per second squared
-            - 'g' = standard gravity
+    v_acc_units: str
+        Units of vertical acceleration data ('m/s^2' by default). Options:
+        - 'm/s^2' = meters per second squared
+        - 'g' = standard gravity
 
-    ts_units : str
-        Units of timestamps ('ms' by default)
-        Options:
-            - 's' = seconds
-            - 'ms' = milli-seconds
-            - 'us' = microseconds
+    ts_units: str
+        Units of timestamps ('ms' by default). Options:
+        - 's' = seconds
+        - 'ms' = milli-seconds
+        - 'us' = microseconds
 
-    flip : bool
+    flip: bool
         Boolean specifying whether to flip vertical acceleration data before analysis (False by default). Algorithm
         assumes that baseline vertical acceleration data is at -9.8 m/s^2 or -1g. (ie. If baseline data in vertical
         direction is 1g, set 'flip' argument to True)
 
-    down_sample : int or float
+    down_sample: int or float
         Sampling rate to downsample data to. Helps to standardize results from multiple sensors with different
         sampling rates.
     '''
@@ -61,31 +53,29 @@ class Gaitpy():
     def extract_features(self, subject_height, subject_height_units='centimeter', sensor_height_ratio=0.53, result_file=None, classified_gait=None, ic_prom=5, fc_prom=25):
         ''' Continuous wavelet transform based method of gait feature detection optimization methods
 
-        Parameters
-        ----------
-        subject_height : int or float
+        subject_height: int or float
             Height of the subject. Accepts centimeters by default.
 
-        subject_height_units : str
+        subject_height_units: str
             Units of provided subject height. Centimeters by default.
             - options: 'centimeter', 'inches', 'meter'
 
-        sensor_height_ratio : float
+        sensor_height_ratio: float
             Height of the sensor relative to subject height. Calculated: sensor height / subject height
 
-        result_file : str
+        result_file: str
             Optional argument that accepts .csv filepath string to save resulting gait feature dataframe to.
             None by default. (ie. myfolder/myfile.csv)
 
-        classified_gait : str or pandas.core.frame.DataFrame
+        classified_gait: str or pandas.core.frame.DataFrame
             Pandas dataframe containing results of gait bout classification procedure (classify_bouts)
             OR
             File path of .h5 file containing results of gait bout classification procedure (classify_bouts)
 
-        ic_prom : int
+        ic_prom: int
             Prominance of initial contact peak detection
 
-        fc_prom : int
+        fc_prom: int
             Prominance of final contact peak detection
 
         '''
@@ -185,18 +175,16 @@ class Gaitpy():
     def plot_contacts(self, gait_features, result_file=None, show_plot=True):
         """ Plot initial and final contacts of lumbar based gait feature extraction
 
-        Parameters
-        ----------
-        gait_features : pandas.DataFrame or str
+        gait_features: pandas.DataFrame or str
             Pandas dataframe containing results of extract_features function
             OR
             File path of .csv file containing results of extract_features function
 
-        result_file : str
+        result_file: str
             Optional argument that accepts .html filepath string to save resulting gait event plot to.
             None by default. (ie. myfolder/myfile.html)
 
-        show_plot : bool
+        show_plot: bool
             Optional boolean argument that specifies whether your plot is displayed. True by default.
 
         """
@@ -311,9 +299,7 @@ class Gaitpy():
     def classify_bouts(self, result_file=None):
         """ Gait bout classification using acceleration data in the vertical direction from the lumbar location.
 
-        Parameters
-        ----------
-        result_file : str
+        result_file: str
             Optional argument that accepts .h5 filepath string to save resulting predictions to.
             None by default. (ie. myfolder/myfile.h5)
 
