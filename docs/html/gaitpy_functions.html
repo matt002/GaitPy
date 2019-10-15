@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>classify_bouts &mdash; GaitPy 1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="GaitPy" href="gaitpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GaitPy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gaitpy.html">GaitPy</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">classify_bouts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-gaitpy.gait.Gaitpy.extract_features">extract_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-gaitpy.gait.Gaitpy.plot_contacts">plot_contacts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GaitPy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+          <li><a href="gaitpy.html">GaitPy</a> &raquo;</li>
+        
+      <li>classify_bouts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gaitpy_functions.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gaitpy.gait.Gaitpy.classify_bouts">
+<span id="classify-bouts"></span><h1>classify_bouts<a class="headerlink" href="#module-gaitpy.gait.Gaitpy.classify_bouts" title="Permalink to this headline">¶</a></h1>
+<p>Gait bout classification using acceleration data in the vertical direction from the lumbar location.</p>
+<dl class="simple">
+<dt>result_file: str</dt><dd><p>Optional argument that accepts .h5 filepath string to save resulting predictions to.
+None by default. (ie. myfolder/myfile.h5)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="module-gaitpy.gait.Gaitpy.extract_features">
+<span id="extract-features"></span><h1>extract_features<a class="headerlink" href="#module-gaitpy.gait.Gaitpy.extract_features" title="Permalink to this headline">¶</a></h1>
+<p>Continuous wavelet transform based method of gait feature detection optimization methods</p>
+<dl class="simple">
+<dt>subject_height: int or float</dt><dd><p>Height of the subject. Accepts centimeters by default.</p>
+</dd>
+<dt>subject_height_units: str</dt><dd><p>Units of provided subject height. Centimeters by default.
+- options: ‘centimeter’, ‘inches’, ‘meter’</p>
+</dd>
+<dt>sensor_height_ratio: float</dt><dd><p>Height of the sensor relative to subject height. Calculated: sensor height / subject height</p>
+</dd>
+<dt>result_file: str</dt><dd><p>Optional argument that accepts .csv filepath string to save resulting gait feature dataframe to.
+None by default. (ie. myfolder/myfile.csv)</p>
+</dd>
+<dt>classified_gait: str or pandas.core.frame.DataFrame</dt><dd><p>Pandas dataframe containing results of gait bout classification procedure (classify_bouts)
+OR
+File path of .h5 file containing results of gait bout classification procedure (classify_bouts)</p>
+</dd>
+<dt>ic_prom: int</dt><dd><p>Prominance of initial contact peak detection</p>
+</dd>
+<dt>fc_prom: int</dt><dd><p>Prominance of final contact peak detection</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="module-gaitpy.gait.Gaitpy.plot_contacts">
+<span id="plot-contacts"></span><h1>plot_contacts<a class="headerlink" href="#module-gaitpy.gait.Gaitpy.plot_contacts" title="Permalink to this headline">¶</a></h1>
+<p>Plot initial and final contacts of lumbar based gait feature extraction</p>
+<dl class="simple">
+<dt>gait_features: pandas.DataFrame or str</dt><dd><p>Pandas dataframe containing results of extract_features function
+OR
+File path of .csv file containing results of extract_features function</p>
+</dd>
+<dt>result_file: str</dt><dd><p>Optional argument that accepts .html filepath string to save resulting gait event plot to.
+None by default. (ie. myfolder/myfile.html)</p>
+</dd>
+<dt>show_plot: bool</dt><dd><p>Optional boolean argument that specifies whether your plot is displayed. True by default.</p>
+</dd>
+</dl>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="gaitpy.html" class="btn btn-neutral float-left" title="GaitPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Matt D. Czech
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
