@@ -148,6 +148,95 @@
             
   <div class="section" id="welcome-to-gaitpy-s-documentation">
 <h1>Welcome to GaitPy’s documentation!<a class="headerlink" href="#welcome-to-gaitpy-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>GaitPy provides python functions to read accelerometry data from a single lumbar-mounted sensor and estimate clinical
+characteristics of gait. GaitPy has been tested using python v3.6.</p>
+<p>The source code is available on Github: <a class="reference external" href="https://github.com/matt002/GaitPy">github.com/matt002/GaitPy</a></p>
+<ul class="simple">
+<li><p>Device location: lower back/lumbar</p></li>
+<li><p>Sensing modality: Accelerometer</p></li>
+<li><p>Sensor data: Vertical acceleration</p></li>
+<li><p>Minimum sampling rate: 50Hz</p></li>
+</ul>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Installation via pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">gaitpy</span>
+</pre></div>
+</div>
+<p>You can also install it from source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">matt002</span><span class="o">/</span><span class="n">gaitpy</span>
+<span class="n">cd</span> <span class="n">gaitpy</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>Gaitpy consists of the following 3 functions:
+1. classify_bouts: If your data consists of gait and non-gait data, run the classify_bouts function to first
+classify bouts of gait. If your data is solely during gait, this function is not necessary to use.
+2. extract_features: Extract initial contact (IC) and final contact (FC) events from your data and estimate
+various temporal and spatial gait features.
+3. plot_contacts: Plot the resulting bout detections and IC/FC events alongside your raw accelerometer signal.</p>
+<p>Gaitpy accepts a csv file or pandas dataframe that includes a column containing unix timestamps and a column containing
+vertical acceleration from a lumbar-mounted sensor. Gaitpy makes three assumptions by default:
+1. Timestamps and vertical acceleration columns are labeled ‘timestamps’ and ‘y’ respectively, however
+this can be changed using the ‘v_acc_col_name’ and ‘ts_col_name’ arguments respectively.
+2. Timestamps are in Unix milliseconds and data is in meters per second squared, however this can be be changed using the ‘ts_units’ and ‘v_acc_units’ arguments respectively.
+3. Baseline vertical acceleration data is -9.8m/s^2 or -1g. If your baseline data is +9.8m/s^2 or +1g, set the ‘flip’ argument to True.</p>
+<p>Additionally, the sample rate of your device (at least 50Hz) and height of the subject must be provided.</p>
+<p>More details about the inputs and ouputs of each of these functions can be found in Czech et al. 2019 (in preparation).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gaitpy.gait</span> <span class="k">import</span> <span class="n">Gaitpy</span>
+
+<span class="n">raw_data</span> <span class="o">=</span> <span class="s1">&#39;raw-data-path or pandas dataframe&#39;</span>
+<span class="n">sample_rate</span> <span class="o">=</span> <span class="mi">128</span> <span class="c1"># hertz</span>
+<span class="n">subject_height</span> <span class="o">=</span> <span class="mi">170</span> <span class="c1"># centimeters</span>
+
+<span class="c1">#### Create an instance of Gaitpy ####</span>
+<span class="n">gaitpy</span> <span class="o">=</span> <span class="n">Gaitpy</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span>                           <span class="c1"># Raw data consisting of vertical acceleration from lumbar location and unix timestamps</span>
+                <span class="n">sample_rate</span><span class="p">,</span>                        <span class="c1"># Sample rate of raw data (in Hertz)</span>
+                <span class="n">v_acc_col_name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span>                 <span class="c1"># Vertical acceleration column name</span>
+                <span class="n">ts_col_name</span><span class="o">=</span><span class="s1">&#39;timestamps&#39;</span><span class="p">,</span>           <span class="c1"># Timestamp column name</span>
+                <span class="n">v_acc_units</span><span class="o">=</span><span class="s1">&#39;m/s^2&#39;</span><span class="p">,</span>                <span class="c1"># Units of vertical acceleration</span>
+                <span class="n">ts_units</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">,</span>                      <span class="c1"># Units of timestamps</span>
+                <span class="n">flip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>                         <span class="c1"># If baseline data is at +1g or +9.8m/s^2, set flip=True</span>
+
+<span class="c1">#### Classify bouts of gait - Optional (use if your data consists of gait and non-gait periods)####</span>
+<span class="n">gait_bouts</span> <span class="o">=</span> <span class="n">gaitpy</span><span class="o">.</span><span class="n">classify_bouts</span><span class="p">(</span><span class="n">result_file</span><span class="o">=</span><span class="s1">&#39;/my/folder/classified_gait.h5&#39;</span><span class="p">)</span>     <span class="c1"># File to save results to (None by default)</span>
+
+<span class="c1">#### Extract gait characteristics ####</span>
+<span class="n">gait_features</span> <span class="o">=</span> <span class="n">gaitpy</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">subject_height</span><span class="p">,</span>                               <span class="c1"># Subject height</span>
+                                        <span class="n">subject_height_units</span><span class="o">=</span><span class="s1">&#39;centimeter&#39;</span><span class="p">,</span>            <span class="c1"># Units of subject height</span>
+                                        <span class="n">result_file</span><span class="o">=</span><span class="s1">&#39;/my/folder/gait_features.csv&#39;</span><span class="p">,</span>   <span class="c1"># File to save results to (None by default)</span>
+                                        <span class="n">classified_gait</span><span class="o">=</span><span class="n">gait_bouts</span><span class="p">)</span>                   <span class="c1"># Pandas Dataframe or .h5 file results of classify_bouts function (None by default)</span>
+
+<span class="c1">#### Plot results of gait feature extraction ####</span>
+<span class="n">gaitpy</span><span class="o">.</span><span class="n">plot_contacts</span><span class="p">(</span><span class="n">gait_features</span><span class="p">,</span>                                     <span class="c1"># Pandas Dataframe or .csv file results of extract_features function</span>
+                     <span class="n">result_file</span><span class="o">=</span><span class="s1">&#39;/my/folder/plot_contacts.html)&#39;</span><span class="p">,</span>      <span class="c1"># File to save results to (None by default)</span>
+                     <span class="n">show_plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                                    <span class="c1"># Specify whether to display plot upon completion (True by default)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-the-demo">
+<h2>Running the demo<a class="headerlink" href="#running-the-demo" title="Permalink to this headline">¶</a></h2>
+<p>The demo file provided lets you to test whether GaitPy outputs the expected results on your system.</p>
+<p>You may run the demo directly from a terminal window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">gaitpy</span><span class="o">/</span><span class="n">demo</span>
+<span class="n">python</span> <span class="n">demo</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>You may also run the demo via a python interpreter. In a terminal window start python by typing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span>
+</pre></div>
+</div>
+<p>In the interpreter window you can then import and run the demo with the following two commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gaitpy.demo</span> <span class="k">import</span> <span class="n">demo</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">run_demo</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The demo script will prompt you to type in a results directory. Following the run, results will be saved in the provided
+results directory (less than 250kB of data will be saved). Running the demo should take less than a minute, though this
+may vary depending on your machine.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -161,6 +250,15 @@
 </ul>
 </li>
 </ul>
+</div>
+</div>
+<div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>The Digital Medicine &amp; Translational Imaging group at Pfizer, Inc supported the development of this package.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>Gaitpy is under the MIT license</p>
 </div>
 </div>
 
