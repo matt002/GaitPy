@@ -10,7 +10,7 @@ characteristics of gait. GaitPy has been tested using python v3.6.
 - Sensor data: Vertical acceleration
 - Minimum sampling rate: 50Hz
 
-[DOCUMENTAION](https://matt002.github.io/GaitPy/html/index.html)
+[DOCUMENTATION](https://matt002.github.io/GaitPy/html/index.html)
 
 ## Installation
 Installation via pip:
