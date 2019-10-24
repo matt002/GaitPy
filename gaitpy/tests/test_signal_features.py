@@ -1,9 +1,7 @@
 import os
-import pandas as pd
 from pandas.util.testing import assert_frame_equal
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-import numpy as np
 from gaitpy.signal_features import *
 
 def test__signal_features():
