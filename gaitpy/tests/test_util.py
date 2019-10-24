@@ -9,7 +9,7 @@ from gaitpy.gait import *
 
 def test_load_data():
     # Load/format data
-    src = os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_data.csv'
+    src = os.path.abspath(__file__ + '/../../')+'/demo/demo_data.csv'
     raw_data = pd.read_csv(src, skiprows=99, names=['timestamps', 'x', 'y', 'z'], usecols=[0, 1, 2, 3])
     raw_data['unix_timestamps'] = pd.to_datetime(raw_data.timestamps, format="%Y-%m-%d %H:%M:%S:%f").values.astype(np.int64) // 10**6
     raw_data = raw_data.iloc[:10,:]
@@ -36,7 +36,7 @@ def test_load_data():
 
 def test_extract_signal_features():
     # Load/format data
-    src = os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_data.csv'
+    src = os.path.abspath(__file__ + '/../../')+'/demo/demo_data.csv'
     raw_data = pd.read_csv(src, skiprows=99, names=['timestamps', 'x', 'y', 'z'], usecols=[0, 1, 2, 3])
     raw_data['unix_timestamps'] = pd.to_datetime(raw_data.timestamps, format="%Y-%m-%d %H:%M:%S:%f").values.astype(np.int64) // 10**6
     data = pd.DataFrame({'y': raw_data.iloc[:150,:].y})
@@ -62,7 +62,7 @@ def test_extract_signal_features():
 
 def test_concatenate_bouts():
     # Load/format data
-    classify_bouts = pd.read_hdf(os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_classify_bouts.h5')
+    classify_bouts = pd.read_hdf(os.path.abspath(__file__ + '/../../')+'/demo/demo_classify_bouts.h5')
     gait_windows = classify_bouts[classify_bouts['prediction'] == 1][0:10]
 
     # Run function being tested
@@ -77,7 +77,7 @@ def test_concatenate_bouts():
 
 def test_cwt():
     # Load/format data
-    src = os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_data.csv'
+    src = os.path.abspath(__file__ + '/../../')+'/demo/demo_data.csv'
     raw_data = pd.read_csv(src, skiprows=99, names=['timestamps', 'x', 'y', 'z'], usecols=[0, 1, 2, 3])
     raw_data = raw_data.iloc[3500:3700,:]
     raw_data['y'] = raw_data['y'] * 9.80665
@@ -91,7 +91,7 @@ def test_cwt():
 
 def test_optimization():
     # Load/format data
-    src = os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_data.csv'
+    src = os.path.abspath(__file__ + '/../../')+'/demo/demo_data.csv'
     raw_data = pd.read_csv(src, skiprows=99, names=['timestamps', 'x', 'y', 'z'], usecols=[0, 1, 2, 3])
     raw_data['unix_timestamps'] = pd.to_datetime(raw_data.timestamps, format="%Y-%m-%d %H:%M:%S:%f").values.astype(np.int64) // 10**6
     raw_data = raw_data.iloc[:500,:]
@@ -113,7 +113,7 @@ def test_optimization():
 
 def test_height_change_com():
     # Load/format data
-    src = os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_data.csv'
+    src = os.path.abspath(__file__ + '/../../')+'/demo/demo_data.csv'
     raw_data = pd.read_csv(src, skiprows=99, names=['timestamps', 'x', 'y', 'z'], usecols=[0, 1, 2, 3])
     raw_data['unix_timestamps'] = pd.to_datetime(raw_data.timestamps, format="%Y-%m-%d %H:%M:%S:%f").values.astype(np.int64) // 10**6
     raw_data = raw_data.iloc[:500,:]

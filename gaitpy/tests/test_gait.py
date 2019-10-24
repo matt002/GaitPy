@@ -31,16 +31,16 @@ def run_gaitpy(src, sample_rate, subject_height):
 
 def test_gaitpy():
     # Set source and destination directories
-    src = os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_data.csv'
+    src = os.path.abspath(__file__ + '/../../')+'/demo/demo_data.csv'
 
     # Run gaitpy
     obtained_classify_bouts, obtained_gait_features = run_gaitpy(src, 50, 177)
 
     # Confirm expected results
-    expected_classify_bouts = pd.read_hdf(os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_classify_bouts.h5')
+    expected_classify_bouts = pd.read_hdf(os.path.abspath(__file__ + '/../../')+'/demo/demo_classify_bouts.h5')
     assert_frame_equal(expected_classify_bouts, obtained_classify_bouts)
 
-    expected_gait_features = pd.read_csv(os.path.abspath(__file__ + '/../../')+'/gaitpy/demo/demo_gait_features.csv')
+    expected_gait_features = pd.read_csv(os.path.abspath(__file__ + '/../../')+'/demo/demo_gait_features.csv')
     expected_gait_features['bout_start_time'] = pd.to_datetime(expected_gait_features['bout_start_time'],
                                                                format='%Y-%m-%d %H:%M:%S.%f')
     assert_frame_equal(expected_gait_features, obtained_gait_features)
