@@ -85,11 +85,11 @@ def _calculate_sensor_height(subject_height, units, sensor_height_ratio):
     import warnings
     # calculate lumbar sensor height in meters
     if type(subject_height) is int or type(subject_height) is float:
-        if units == 'inches':
+        if units == 'inches' or units == 'inch' or units == 'in':
             subj_height = subject_height * 0.0254
-        elif units == 'centimeter':
+        elif units == 'centimeters' or units == 'centimeter' or units == 'cm':
             subj_height = subject_height * 0.01
-        elif units == 'meter':
+        elif units == 'meters' or units == 'meter' or units == 'm':
             subj_height = subject_height
         else:
             raise ValueError('Unable to identify units for subject height: Please make sure subject_height_units is correctly set.')
@@ -188,7 +188,6 @@ def _optimization(timestamps, ic_peaks, fc_peaks):
 
         loading_forward_fcs = fc_times[(fc_times > current_ic) & (fc_times < loading_forward_max)]
         stance_forward_fcs = fc_times[(fc_times > current_ic) & (fc_times < stance_forward_max)]
-        stance_forward_ics = ic_times[((ic_times > current_ic) & (ic_times < stance_forward_max))]
 
         if len(loading_forward_fcs) == 1 and len(stance_forward_fcs) >= 2:
             icfc = pd.DataFrame({'IC': [current_ic], 'FC': [stance_forward_fcs.iloc[1]], 'FC_opp_foot': [stance_forward_fcs.iloc[0]]},
@@ -325,8 +324,8 @@ def _extract_signal_features(data, timestamps, sample_rate, window_length=3.0):
 
     for win in range(int(total_windows)):
         # Isolate data into windows
-        current_win_start = int(window_samples * win + 1)
-        current_win_end = int(current_win_start + window_samples - 1)
+        current_win_start = int(window_samples * win)
+        current_win_end = int(current_win_start + window_samples)
         if current_win_end >= filtered_data_df.shape[0]:
             window_data_df = filtered_data_df.loc[current_win_start:, :]
             end_time = timestamps[-1]

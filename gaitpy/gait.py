@@ -35,12 +35,9 @@ class Gaitpy():
         assumes that baseline vertical acceleration data is at -9.8 m/s^2 or -1g. (ie. If baseline data in vertical
         direction is 1g, set 'flip' argument to True)
 
-    down_sample: int or float
-        Sampling rate to downsample data to. Helps to standardize results from multiple sensors with different
-        sampling rates.
     '''
 
-    def __init__(self, data, sample_rate, v_acc_col_name='y', ts_col_name='timestamps', v_acc_units='m/s^2', ts_units='ms', flip=False, down_sample=50):
+    def __init__(self, data, sample_rate, v_acc_col_name='y', ts_col_name='timestamps', v_acc_units='m/s^2', ts_units='ms', flip=False):
         self.data = data
         self.sample_rate = sample_rate
         self.v_acc_col_name = v_acc_col_name
@@ -48,9 +45,9 @@ class Gaitpy():
         self.v_acc_units = v_acc_units
         self.ts_units = ts_units
         self.flip = flip
-        self.down_sample = down_sample
+        self.down_sample = 50
 
-    def extract_features(self, subject_height, subject_height_units='centimeter', sensor_height_ratio=0.53, result_file=None, classified_gait=None, ic_prom=5, fc_prom=25):
+    def extract_features(self, subject_height, subject_height_units='centimeters', sensor_height_ratio=0.53, result_file=None, classified_gait=None, ic_prom=5, fc_prom=10):
         ''' Continuous wavelet transform based method of gait feature detection optimization methods
 
         subject_height: int or float
@@ -58,7 +55,7 @@ class Gaitpy():
 
         subject_height_units: str
             Units of provided subject height. Centimeters by default.
-            - options: 'centimeter', 'inches', 'meter'
+            - options: 'centimeters', 'inches', 'meters'
 
         sensor_height_ratio: float
             Height of the sensor relative to subject height. Calculated: sensor height / subject height
@@ -153,7 +150,7 @@ class Gaitpy():
 
             bout_n += 1
         all_bout_gait_features.reset_index(drop=True, inplace=True)
-        all_bout_gait_features.iloc[:,7:] = all_bout_gait_features.iloc[:,7:].round(3)
+        all_bout_gait_features.iloc[:,7:] = all_bout_gait_features.iloc[:,7:].round(2)
 
         # Save results
         if result_file:
@@ -317,25 +314,16 @@ class Gaitpy():
         features_filename = os.path.dirname(os.path.realpath(__file__)) + '/model/feature_order.txt'
         model = pickle.load(open(model_filename, 'rb'))
         feature_order = open(features_filename, 'r').read().splitlines()
-        model_sample_rate = 50.
 
         # Load data and convert to g
-        raw_y_accel, ts = util._load_data(self, self.down_sample)
-        y_accel = raw_y_accel / 9.80665
+        y_accel, ts = util._load_data(self, self.down_sample)
+        y_accel_g = y_accel / 9.80665
 
-        # Resample data if necessary
-        if self.down_sample > model_sample_rate:
-            data, timestamps = util._resample_data(y_accel, ts, str(1000./model_sample_rate) + 'ms')
-        elif self.down_sample == model_sample_rate:
-            data = pd.DataFrame({'y': y_accel})
-            timestamps = pd.DatetimeIndex(ts.astype('datetime64[ms]'))
-        elif self.down_sample < model_sample_rate:
-            print('Data sample rate too low for bout detection model. Minimum sample rate required: ' +
-                            str(model_sample_rate) + ' hz, aborting...')
-            return
+        data = pd.DataFrame({'y': y_accel_g})
+        timestamps = pd.DatetimeIndex(ts.astype('datetime64[ms]'))
 
         # Extract signal features from vertical acceleration data
-        feature_set, start_times_list, end_times_list = util._extract_signal_features(data, timestamps, model_sample_rate)
+        feature_set, start_times_list, end_times_list = util._extract_signal_features(data, timestamps, self.down_sample)
         feature_set = feature_set[feature_order]
 
         # Predict

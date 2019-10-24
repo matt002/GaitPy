@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(name='gaitpy',
-                 version='1.5',
+                 version='1.5.1',
                  description='Read and process raw vertical accelerometry data from a lumbar sensor during gait; calculate clinical gait characteristics.',
                  long_description=long_description,
                  long_description_content_type="text/markdown",
@@ -22,5 +22,5 @@ setuptools.setup(name='gaitpy',
                  license='MIT',
                  zip_safe=False,
                  install_requires=requirements(),
-                 setup_requires=["numpy==1.13.3"],
+                 setup_requires=['numpy==1.13.3'],
                  include_package_data=True)

@@ -26,7 +26,7 @@ def run_gaitpy(src, sample_rate, subject_height, dst):
 
     #### Extract gait characteristics ####
     gait_features = gaitpy.extract_features(subject_height,
-                                            subject_height_units='centimeter',
+                                            subject_height_units='centimeters',
                                             result_file=os.path.join(dst,'gait_features.csv'),
                                             classified_gait=gait_bouts)
 
