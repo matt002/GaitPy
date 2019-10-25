@@ -162,47 +162,68 @@
 <span id="classify-bouts"></span><h1>classify_bouts<a class="headerlink" href="#module-gaitpy.gait.Gaitpy.classify_bouts" title="Permalink to this headline">¶</a></h1>
 <p>Gait bout classification using acceleration data in the vertical direction from the lumbar location.</p>
 <dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
 <dt>result_file: str</dt><dd><p>Optional argument that accepts .h5 filepath string to save resulting predictions to.
 None by default. (ie. myfolder/myfile.h5)</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>pandas.core.frame.DataFrame</dt><dd><p>Pandas dataframe containing results of bout classification procedure (classify_bouts)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </div>
 <div class="section" id="module-gaitpy.gait.Gaitpy.extract_features">
 <span id="extract-features"></span><h1>extract_features<a class="headerlink" href="#module-gaitpy.gait.Gaitpy.extract_features" title="Permalink to this headline">¶</a></h1>
-<p>Continuous wavelet transform based method of gait feature detection optimization methods</p>
-<dl class="simple">
+<p>Inverted pendulum and continuous wavelet based method of gait feature detection</p>
+<dl>
+<dt>Parameters:</dt><dd><dl>
 <dt>subject_height: int or float</dt><dd><p>Height of the subject. Accepts centimeters by default.</p>
 </dd>
-<dt>subject_height_units: str</dt><dd><p>Units of provided subject height. Centimeters by default.
-- options: ‘centimeters’, ‘inches’, ‘meters’</p>
+<dt>subject_height_units: str</dt><dd><p>Units of provided subject height. Centimeters by default.</p>
+<ul class="simple">
+<li><p>options: ‘centimeters’, ‘inches’, ‘meters’</p></li>
+</ul>
 </dd>
 <dt>sensor_height_ratio: float</dt><dd><p>Height of the sensor relative to subject height. Calculated: sensor height / subject height</p>
 </dd>
 <dt>result_file: str</dt><dd><p>Optional argument that accepts .csv filepath string to save resulting gait feature dataframe to.
 None by default. (ie. myfolder/myfile.csv)</p>
 </dd>
-<dt>classified_gait: str or pandas.core.frame.DataFrame</dt><dd><p>Pandas dataframe containing results of gait bout classification procedure (classify_bouts)
-OR
-File path of .h5 file containing results of gait bout classification procedure (classify_bouts)</p>
+<dt>classified_gait: str or pandas.core.frame.DataFrame</dt><dd><p>Pandas dataframe containing results of gait bout classification procedure (classify_bouts)</p>
+<p>OR</p>
+<p>File path of .h5 file containing results of gait bout classification procedure (classify_bouts)</p>
 </dd>
 <dt>ic_prom: int</dt><dd><p>Prominance of initial contact peak detection</p>
 </dd>
 <dt>fc_prom: int</dt><dd><p>Prominance of final contact peak detection</p>
 </dd>
 </dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>pandas.core.frame.DataFrame</dt><dd><p>Pandas dataframe containing results of feature extraction procedure (extract_features)</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </div>
 <div class="section" id="module-gaitpy.gait.Gaitpy.plot_contacts">
 <span id="plot-contacts"></span><h1>plot_contacts<a class="headerlink" href="#module-gaitpy.gait.Gaitpy.plot_contacts" title="Permalink to this headline">¶</a></h1>
-<p>Plot initial and final contacts of lumbar based gait feature extraction</p>
-<dl class="simple">
-<dt>gait_features: pandas.DataFrame or str</dt><dd><p>Pandas dataframe containing results of extract_features function
-OR
-File path of .csv file containing results of extract_features function</p>
+<p>Visualization of bouts, initial contacts, and final contacts of lumbar based gait feature extraction</p>
+<dl>
+<dt>Parameters:</dt><dd><dl>
+<dt>gait_features: pandas.DataFrame or str</dt><dd><p>Pandas dataframe containing results of extract_features function</p>
+<p>OR</p>
+<p>File path of .csv file containing results of extract_features function</p>
 </dd>
 <dt>result_file: str</dt><dd><p>Optional argument that accepts .html filepath string to save resulting gait event plot to.
 None by default. (ie. myfolder/myfile.html)</p>
 </dd>
 <dt>show_plot: bool</dt><dd><p>Optional boolean argument that specifies whether your plot is displayed. True by default.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </div>

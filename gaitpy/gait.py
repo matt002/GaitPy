@@ -6,34 +6,41 @@ class Gaitpy():
     - Machine learning based method of bout classification.
     - Visualizing results.
 
-    data: str or pandas.core.frame.DataFrame
-        - Option 1: Pandas dataframe containing unix timestamp column and vertical acceleration data during gait, both of type float
-        - Option 2: File path of .csv file containing timestamp column and vertical acceleration data during gait. One column should contain unix timestamps of type float -- by default gaitpy will assume the column title is 'timestamps' with units in milliseconds. A second column should be vertical acceleration of type float -- by default gaitpy will assume the column title is 'y' with units in m/s^2.
+    Parameters:
+        data: str or pandas.core.frame.DataFrame
+            - Option 1: Pandas dataframe containing unix timestamp column and vertical acceleration data during gait, both of type float
 
-    sample_rate: int or float
-        Sampling rate of accelerometer data in Hertz.
+            - Option 2: File path of .csv file containing timestamp column and vertical acceleration data during gait. One column should contain unix timestamps of type float (by default gaitpy will assume the column title is 'timestamps' with units in milliseconds). A second column should be vertical acceleration of type float (by default gaitpy will assume the column title is 'y' with units in m/s^2).
 
-    v_acc_col_name: str
-        Column name of the vertical acceleration data ('y' by default)
+        sample_rate: int or float
+            Sampling rate of accelerometer data in Hertz.
 
-    ts_col_name: str
-        Column name of the timestamps ('timestamps' by default)
+        v_acc_col_name: str
+            Column name of the vertical acceleration data ('y' by default)
 
-    v_acc_units: str
-        Units of vertical acceleration data ('m/s^2' by default). Options:
-        - 'm/s^2' = meters per second squared
-        - 'g' = standard gravity
+        ts_col_name: str
+            Column name of the timestamps ('timestamps' by default)
 
-    ts_units: str
-        Units of timestamps ('ms' by default). Options:
-        - 's' = seconds
-        - 'ms' = milli-seconds
-        - 'us' = microseconds
+        v_acc_units: str
+            Units of vertical acceleration data ('m/s^2' by default). Options:
 
-    flip: bool
-        Boolean specifying whether to flip vertical acceleration data before analysis (False by default). Algorithm
-        assumes that baseline vertical acceleration data is at -9.8 m/s^2 or -1g. (ie. If baseline data in vertical
-        direction is 1g, set 'flip' argument to True)
+            - 'm/s^2' = meters per second squared
+
+            - 'g' = standard gravity
+
+        ts_units: str
+            Units of timestamps ('ms' by default). Options:
+
+            - 's' = seconds
+
+            - 'ms' = milli-seconds
+
+            - 'us' = microseconds
+
+        flip: bool
+            Boolean specifying whether to flip vertical acceleration data before analysis (False by default). Algorithm
+            assumes that baseline vertical acceleration data is at -9.8 m/s^2 or -1g. (ie. If baseline data in vertical
+            direction is 1g, set 'flip' argument to True)
 
     '''
 
@@ -48,32 +55,40 @@ class Gaitpy():
         self.down_sample = 50
 
     def extract_features(self, subject_height, subject_height_units='centimeters', sensor_height_ratio=0.53, result_file=None, classified_gait=None, ic_prom=5, fc_prom=10):
-        ''' Continuous wavelet transform based method of gait feature detection optimization methods
+        ''' Inverted pendulum and continuous wavelet based method of gait feature detection
 
-        subject_height: int or float
-            Height of the subject. Accepts centimeters by default.
+        Parameters:
+            subject_height: int or float
+                Height of the subject. Accepts centimeters by default.
 
-        subject_height_units: str
-            Units of provided subject height. Centimeters by default.
-            - options: 'centimeters', 'inches', 'meters'
+            subject_height_units: str
+                Units of provided subject height. Centimeters by default.
 
-        sensor_height_ratio: float
-            Height of the sensor relative to subject height. Calculated: sensor height / subject height
+                - options: 'centimeters', 'inches', 'meters'
 
-        result_file: str
-            Optional argument that accepts .csv filepath string to save resulting gait feature dataframe to.
-            None by default. (ie. myfolder/myfile.csv)
+            sensor_height_ratio: float
+                Height of the sensor relative to subject height. Calculated: sensor height / subject height
 
-        classified_gait: str or pandas.core.frame.DataFrame
-            Pandas dataframe containing results of gait bout classification procedure (classify_bouts)
-            OR
-            File path of .h5 file containing results of gait bout classification procedure (classify_bouts)
+            result_file: str
+                Optional argument that accepts .csv filepath string to save resulting gait feature dataframe to.
+                None by default. (ie. myfolder/myfile.csv)
 
-        ic_prom: int
-            Prominance of initial contact peak detection
+            classified_gait: str or pandas.core.frame.DataFrame
+                Pandas dataframe containing results of gait bout classification procedure (classify_bouts)
 
-        fc_prom: int
-            Prominance of final contact peak detection
+                OR
+
+                File path of .h5 file containing results of gait bout classification procedure (classify_bouts)
+
+            ic_prom: int
+                Prominance of initial contact peak detection
+
+            fc_prom: int
+                Prominance of final contact peak detection
+
+        Returns:
+            pandas.core.frame.DataFrame
+                Pandas dataframe containing results of feature extraction procedure (extract_features)
 
         '''
         import pandas as pd
@@ -170,19 +185,22 @@ class Gaitpy():
         return all_bout_gait_features
 
     def plot_contacts(self, gait_features, result_file=None, show_plot=True):
-        """ Plot initial and final contacts of lumbar based gait feature extraction
+        """ Visualization of bouts, initial contacts, and final contacts of lumbar based gait feature extraction
 
-        gait_features: pandas.DataFrame or str
-            Pandas dataframe containing results of extract_features function
-            OR
-            File path of .csv file containing results of extract_features function
+        Parameters:
+            gait_features: pandas.DataFrame or str
+                Pandas dataframe containing results of extract_features function
 
-        result_file: str
-            Optional argument that accepts .html filepath string to save resulting gait event plot to.
-            None by default. (ie. myfolder/myfile.html)
+                OR
 
-        show_plot: bool
-            Optional boolean argument that specifies whether your plot is displayed. True by default.
+                File path of .csv file containing results of extract_features function
+
+            result_file: str
+                Optional argument that accepts .html filepath string to save resulting gait event plot to.
+                None by default. (ie. myfolder/myfile.html)
+
+            show_plot: bool
+                Optional boolean argument that specifies whether your plot is displayed. True by default.
 
         """
         from bokeh.plotting import figure, output_file, save, show
@@ -296,9 +314,14 @@ class Gaitpy():
     def classify_bouts(self, result_file=None):
         """ Gait bout classification using acceleration data in the vertical direction from the lumbar location.
 
-        result_file: str
-            Optional argument that accepts .h5 filepath string to save resulting predictions to.
-            None by default. (ie. myfolder/myfile.h5)
+        Parameters:
+            result_file: str
+                Optional argument that accepts .h5 filepath string to save resulting predictions to.
+                None by default. (ie. myfolder/myfile.h5)
+
+        Returns:
+            pandas.core.frame.DataFrame
+                Pandas dataframe containing results of bout classification procedure (classify_bouts)
 
         """
         import pickle

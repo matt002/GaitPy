@@ -166,9 +166,10 @@
 <li><p>Visualizing results.</p></li>
 </ul>
 <dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
 <dt>data: str or pandas.core.frame.DataFrame</dt><dd><ul class="simple">
 <li><p>Option 1: Pandas dataframe containing unix timestamp column and vertical acceleration data during gait, both of type float</p></li>
-<li><p>Option 2: File path of .csv file containing timestamp column and vertical acceleration data during gait. One column should contain unix timestamps of type float – by default gaitpy will assume the column title is ‘timestamps’ with units in milliseconds. A second column should be vertical acceleration of type float – by default gaitpy will assume the column title is ‘y’ with units in m/s^2.</p></li>
+<li><p>Option 2: File path of .csv file containing timestamp column and vertical acceleration data during gait. One column should contain unix timestamps of type float (by default gaitpy will assume the column title is ‘timestamps’ with units in milliseconds). A second column should be vertical acceleration of type float (by default gaitpy will assume the column title is ‘y’ with units in m/s^2).</p></li>
 </ul>
 </dd>
 <dt>sample_rate: int or float</dt><dd><p>Sampling rate of accelerometer data in Hertz.</p>
@@ -177,18 +178,24 @@
 </dd>
 <dt>ts_col_name: str</dt><dd><p>Column name of the timestamps (‘timestamps’ by default)</p>
 </dd>
-<dt>v_acc_units: str</dt><dd><p>Units of vertical acceleration data (‘m/s^2’ by default). Options:
-- ‘m/s^2’ = meters per second squared
-- ‘g’ = standard gravity</p>
+<dt>v_acc_units: str</dt><dd><p>Units of vertical acceleration data (‘m/s^2’ by default). Options:</p>
+<ul class="simple">
+<li><p>‘m/s^2’ = meters per second squared</p></li>
+<li><p>‘g’ = standard gravity</p></li>
+</ul>
 </dd>
-<dt>ts_units: str</dt><dd><p>Units of timestamps (‘ms’ by default). Options:
-- ‘s’ = seconds
-- ‘ms’ = milli-seconds
-- ‘us’ = microseconds</p>
+<dt>ts_units: str</dt><dd><p>Units of timestamps (‘ms’ by default). Options:</p>
+<ul class="simple">
+<li><p>‘s’ = seconds</p></li>
+<li><p>‘ms’ = milli-seconds</p></li>
+<li><p>‘us’ = microseconds</p></li>
+</ul>
 </dd>
 <dt>flip: bool</dt><dd><p>Boolean specifying whether to flip vertical acceleration data before analysis (False by default). Algorithm
 assumes that baseline vertical acceleration data is at -9.8 m/s^2 or -1g. (ie. If baseline data in vertical
 direction is 1g, set ‘flip’ argument to True)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <div class="toctree-wrapper compound">
