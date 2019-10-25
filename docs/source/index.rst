@@ -35,6 +35,7 @@ You can also install it from source:
 Basic usage
 -----------
 Gaitpy consists of the following 3 functions:
+
 1. classify_bouts: If your data consists of gait and non-gait data, run the classify_bouts function to first
 classify bouts of gait. If your data is solely during gait, this function is not necessary to use.
 2. extract_features: Extract initial contact (IC) and final contact (FC) events from your data and estimate
@@ -43,6 +44,7 @@ various temporal and spatial gait features.
 
 Gaitpy accepts a csv file or pandas dataframe that includes a column containing unix timestamps and a column containing
 vertical acceleration from a lumbar-mounted sensor. Gaitpy makes three assumptions by default:
+
 1. Timestamps and vertical acceleration columns are labeled 'timestamps' and 'y' respectively, however
 this can be changed using the 'v_acc_col_name' and 'ts_col_name' arguments respectively.
 2. Timestamps are in Unix milliseconds and data is in meters per second squared, however this can be be changed using the 'ts_units' and 'v_acc_units' arguments respectively.
@@ -50,7 +52,7 @@ this can be changed using the 'v_acc_col_name' and 'ts_col_name' arguments respe
 
 Additionally, the sample rate of your device (at least 50Hz) and height of the subject must be provided.
 
-More details about the inputs and ouputs of each of these functions can be found in Czech et al. 2019 (in preparation).
+More details about the inputs and ouputs of each of these functions can be found in Czech et al. 2019.[![status](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875/status.svg)](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875)
 
 .. code::
 
