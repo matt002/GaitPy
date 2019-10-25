@@ -172,20 +172,25 @@ characteristics of gait. GaitPy has been tested using python v3.6.</p>
 </div>
 <div class="section" id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
-<p>Gaitpy consists of the following 3 functions:
-1. classify_bouts: If your data consists of gait and non-gait data, run the classify_bouts function to first
-classify bouts of gait. If your data is solely during gait, this function is not necessary to use.
-2. extract_features: Extract initial contact (IC) and final contact (FC) events from your data and estimate
-various temporal and spatial gait features.
-3. plot_contacts: Plot the resulting bout detections and IC/FC events alongside your raw accelerometer signal.</p>
+<p>Gaitpy consists of the following 3 functions:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>classify_bouts: If your data consists of gait and non-gait data, run the classify_bouts function to first classify bouts of gait. If your data is solely during gait, this function is not necessary to use.</p></li>
+<li><p>extract_features: Extract initial contact (IC) and final contact (FC) events from your data and estimate various temporal and spatial gait features.</p></li>
+<li><p>plot_contacts: Plot the resulting bout detections and IC/FC events alongside your raw accelerometer signal.</p></li>
+</ol>
+</div></blockquote>
 <p>Gaitpy accepts a csv file or pandas dataframe that includes a column containing unix timestamps and a column containing
-vertical acceleration from a lumbar-mounted sensor. Gaitpy makes three assumptions by default:
-1. Timestamps and vertical acceleration columns are labeled ‘timestamps’ and ‘y’ respectively, however
-this can be changed using the ‘v_acc_col_name’ and ‘ts_col_name’ arguments respectively.
-2. Timestamps are in Unix milliseconds and data is in meters per second squared, however this can be be changed using the ‘ts_units’ and ‘v_acc_units’ arguments respectively.
-3. Baseline vertical acceleration data is -9.8m/s^2 or -1g. If your baseline data is +9.8m/s^2 or +1g, set the ‘flip’ argument to True.</p>
+vertical acceleration from a lumbar-mounted sensor. Gaitpy makes three assumptions by default:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Timestamps and vertical acceleration columns are labeled ‘timestamps’ and ‘y’ respectively, however this can be changed using the ‘v_acc_col_name’ and ‘ts_col_name’ arguments respectively.</p></li>
+<li><p>Timestamps are in Unix milliseconds and data is in meters per second squared, however this can be be changed using the ‘ts_units’ and ‘v_acc_units’ arguments respectively.</p></li>
+<li><p>Baseline vertical acceleration data is -9.8m/s^2 or -1g. If your baseline data is +9.8m/s^2 or +1g, set the ‘flip’ argument to True.</p></li>
+</ol>
+</div></blockquote>
 <p>Additionally, the sample rate of your device (at least 50Hz) and height of the subject must be provided.</p>
-<p>More details about the inputs and ouputs of each of these functions can be found in Czech et al. 2019 (in preparation).</p>
+<p>More details about the inputs and ouputs of each of these functions can be found in <a class="reference external" href="https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875">Czech et al. 2019 (in preparation)</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gaitpy.gait</span> <span class="k">import</span> <span class="n">Gaitpy</span>
 
 <span class="n">raw_data</span> <span class="o">=</span> <span class="s1">&#39;raw-data-path or pandas dataframe&#39;</span>
