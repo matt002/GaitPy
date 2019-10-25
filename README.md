@@ -1,6 +1,9 @@
 # Gaitpy
-Read and process raw vertical accelerometry data from a sensor on the lower back during gait; calculate clinical gait characteristics. [![status](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875/status.svg)](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875)
+Read and process raw vertical accelerometry data from a sensor on the lower back during gait; calculate clinical gait characteristics. 
 
+[![status](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875/status.svg)](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875)
+
+[![Build Status](https://travis-ci.com/matt002/GaitPy.svg?branch=master)](https://travis-ci.com/matt002/GaitPy)
 
 ## Overview
 GaitPy provides python functions to read accelerometry data from a single lumbar-mounted sensor and estimate clinical 
