@@ -47,7 +47,7 @@ argument to True.
 
 Additionally, the sample rate of your device (at least 50Hz) and height of the subject must be provided. 
 
-More details about the inputs and ouputs of each of these functions can be found in the [documentation](https://matt002.github.io/GaitPy/html/index.html)  and Czech et al. 2019 (in preparation). 
+More details about the inputs and ouputs of each of these functions can be found in the [documentation](https://matt002.github.io/GaitPy/html/index.html)  and Czech et al. 2019 [![status](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875/status.svg)](https://joss.theoj.org/papers/a2233c9e27db0b6625dc56a3f7363875). 
 
 ```sh
 from gaitpy.gait import Gaitpy
