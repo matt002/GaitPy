@@ -7,7 +7,7 @@ Read and process raw vertical accelerometry data from a sensor on the lower back
 
 ## Overview
 GaitPy provides python functions to read accelerometry data from a single lumbar-mounted sensor and estimate clinical 
-characteristics of gait. GaitPy has been tested using python v3.6.
+characteristics of gait. 
 
 - Device location: lower back/lumbar
 - Sensing modality: Accelerometer
@@ -17,6 +17,8 @@ characteristics of gait. GaitPy has been tested using python v3.6.
 [DOCUMENTATION](https://matt002.github.io/GaitPy/html/index.html)
 
 ## Installation
+GaitPy has been tested using python v3.6 on Mac OSX.
+
 Installation via pip:
 
 ```sh
