@@ -7,7 +7,7 @@ Welcome to GaitPy's documentation!
 ==================================
 
 GaitPy provides python functions to read accelerometry data from a single lumbar-mounted sensor and estimate clinical
-characteristics of gait. GaitPy has been tested using python v3.6.
+characteristics of gait. 
 
 The source code is available on Github: `github.com/matt002/GaitPy <https://github.com/matt002/GaitPy>`_
 
@@ -18,6 +18,8 @@ The source code is available on Github: `github.com/matt002/GaitPy <https://gith
 
 Installation
 ------------
+GaitPy has been tested using python v3.6 on Mac OSX.
+
 Installation via pip:
 
 .. code::
