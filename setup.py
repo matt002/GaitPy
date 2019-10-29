@@ -30,6 +30,7 @@ setuptools.setup(name='gaitpy',
                               "License :: OSI Approved :: MIT License"],
                  license='MIT',
                  zip_safe=False,
+                 cmdclass={'build_ext':build_ext},
                  setup_requires=['numpy==1.13.3'],
                  install_requires=requirements(),
                  include_package_data=True)
