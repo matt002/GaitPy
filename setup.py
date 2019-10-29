@@ -1,5 +1,14 @@
 import setuptools
+from setuptools.command.build_ext import build_ext as _build_ext
 
+class build_ext(_build_ext):
+    def finalize_options(self):
+        _build_ext.finalize_options(self)
+        # Prevent numpy from thinking it is still in its setup process:
+        __builtins__.__NUMPY_SETUP__ = False
+        import numpy
+        self.include_dirs.append(numpy.get_include())
+        
 def requirements():
     with open('requirements.txt', "r") as fh:
         return [x for x in fh.read().split('\n') if x]
@@ -21,6 +30,6 @@ setuptools.setup(name='gaitpy',
                               "License :: OSI Approved :: MIT License"],
                  license='MIT',
                  zip_safe=False,
-                 install_requires=requirements(),
                  setup_requires=['numpy==1.13.3'],
+                 install_requires=requirements(),
                  include_package_data=True)
