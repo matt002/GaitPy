@@ -16,6 +16,8 @@ characteristics of gait.
 
 [DOCUMENTATION](https://matt002.github.io/GaitPy/html/index.html)
 
+[COMMUNITY GUIDELINES](https://github.com/matt002/GaitPy/blob/master/CONTRIBUTING.md)
+
 ## Installation
 GaitPy has been tested using python v3.6 on Mac OSX.
 
