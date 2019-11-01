@@ -19,7 +19,7 @@ characteristics of gait.
 [COMMUNITY GUIDELINES](https://github.com/matt002/GaitPy/blob/master/CONTRIBUTING.md)
 
 ## Installation
-GaitPy has been tested using python v3.6 on Mac OSX.
+GaitPy is compatible with python v3.6 on MacOSX, Windows, and Linux.
 
 Installation via pip:
 
