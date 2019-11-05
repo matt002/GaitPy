@@ -120,4 +120,4 @@ may vary depending on your machine.
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
 
 ## License
-Gaitpy is under the MIT license
+GaitPy is under the MIT license
