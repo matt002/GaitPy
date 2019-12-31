@@ -19,19 +19,36 @@ characteristics of gait.
 [COMMUNITY GUIDELINES](https://github.com/matt002/GaitPy/blob/master/CONTRIBUTING.md)
 
 ## Installation
-GaitPy is compatible with python v3.6 on MacOSX, Windows, and Linux.
+GaitPy is compatible with python v3.6 on MacOSX, Windows, and Linux and is available through ([Anaconda](https://www.anaconda.com/distribution/) package manager.
 
-Installation via pip:
+**Installation via Anaconda (recommended):**
 
+Once you have Anaconda installed, open a terminal window and create a new environment using the following command.
+```sh
+conda create --name my_env python=3.6
+```
+Then, activate your environment using the following command for Mac and Linux.
+```sh
+source activate my_env
+```
+For Windows use the following.
+```sh
+activate my_env
+```
+Lastly, to install GaitPy, use the following command.
+```sh
+conda install gaitpy
+```
+
+**Alternatively, you can install via pip:**
 ```sh
 pip install gaitpy
 ```
 
-You can also install it from source:
-
+**You can also install GaitPy from source:**
 ```sh
 git clone https://github.com/matt002/gaitpy
-cd gaitpy
+cd ~/gaitpy
 python setup.py install
 ```
 
