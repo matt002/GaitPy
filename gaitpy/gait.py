@@ -165,6 +165,8 @@ class Gaitpy():
             # remove center of mass height and gait cycle boolean columns, remove rows with NAs
             gait_features.dropna(inplace=True)
             gait_features.drop(['CoM_height','Gait_Cycle', 'FC_opp_foot'], axis=1, inplace=True)
+            if gait_features.empty:
+                continue
 
             gait_features.insert(0, 'bout_number', bout_n)
             gait_features.insert(1, 'bout_length_sec', bout.bout_length)
