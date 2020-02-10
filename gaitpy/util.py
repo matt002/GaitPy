@@ -335,15 +335,6 @@ def _extract_signal_features(data, timestamps, sample_rate, window_length=3.0):
         start_time = timestamps[current_win_start]
         window_data_df.reset_index(drop=True, inplace=True)
 
-        ### Check the orientation of vertical axis
-        import numpy as np
-        window_mean = np.mean(window_data_df.y)
-        if window_mean < 0:
-            pass
-        else:
-            warnings.warn('Data appears to be flipped between '+str(current_win_start)+' and '+str(current_win_end)+', flipping axis...')
-            window_data_df['y_bp_filt_[0.5, 3.0]'] = window_data_df['y_bp_filt_[0.5, 3.0]'] * (-1)
-
         # Extract Features
         try:
             features_df = sf._signal_features(window_data_df, total_data_channels, sample_rate)
