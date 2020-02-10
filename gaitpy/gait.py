@@ -137,6 +137,15 @@ class Gaitpy():
                 warnings.warn('There are too few data points between '+str(bout.start_time)+' and '+str(bout.end_time)+', skipping bout...')
                 continue
 
+            # Check the orientation of vertical axis
+            import numpy as np
+            window_mu = np.mean(bout_data.y)
+            if window_mu < 0:
+                pass
+            else:
+                warnings.warn('Data appears to be flipped between '+str(bout.start_time)+' and '+str(bout.end_time)+', flipping axis...')
+                bout_data['y'] = bout_data['y'] * (-1)
+
             # Run CWT Gait Model IC and FC detection
             ic_peaks, fc_peaks = util._cwt(bout_data.y, self.down_sample, ic_prom, fc_prom)
 
