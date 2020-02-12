@@ -220,6 +220,8 @@ def _height_change_com(optimized_gait, timestamps, gait_data, sample_rate):
         post_ic_index = timestamps.index[timestamps == optimized_gait.IC[i + 1]].item()
 
         step_raw = gait_data.loc[ic_index:post_ic_index]
+        if len(step_raw) <= 15:
+            continue
         step_detrended = signal.detrend(step_raw)
         if sample_rate >= 40:
             step_filtered = _butter_lowpass_filter(step_detrended, sample_rate)

@@ -100,6 +100,9 @@ class Gaitpy():
         # Load data
         y_accel, timestamps = util._load_data(self, self.down_sample)
 
+        # Calculate sensor height
+        sensor_height = util._calculate_sensor_height(subject_height, subject_height_units, sensor_height_ratio)
+
         # If classified gait is provided, load pandas dataframe or h5 file
         if classified_gait is not None:
             if type(classified_gait) is str:
@@ -133,7 +136,7 @@ class Gaitpy():
             bout_data = pd.DataFrame([])
             bout_data['y'] = pd.DataFrame(y_accel.loc[bout_indices].reset_index(drop=True))
             bout_data['ts'] = timestamps.loc[bout_indices].reset_index(drop=True)
-            if len(bout_data.y) < 15:
+            if len(bout_data.y) <= 15:
                 warnings.warn('There are too few data points between '+str(bout.start_time)+' and '+str(bout.end_time)+', skipping bout...')
                 continue
 
@@ -159,7 +162,6 @@ class Gaitpy():
             optimized_gait = util._height_change_com(optimized_gait, bout_data['ts'], bout_data['y'], self.down_sample)
 
             # Calculate gait features
-            sensor_height = util._calculate_sensor_height(subject_height, subject_height_units, sensor_height_ratio)
             gait_features = util._cwt_feature_extraction(optimized_gait, sensor_height)
 
             # remove center of mass height and gait cycle boolean columns, remove rows with NAs
