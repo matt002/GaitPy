@@ -243,7 +243,7 @@ def _resample_data(y_accel, timestamps, new_fs):
     data.set_index('ts', inplace=True)
 
     # Resample data
-    resampled_data = pd.DataFrame(data['y'].resample(new_fs).mean())
+    resampled_data = pd.DataFrame(data['y'].resample(new_fs).fillna('nearest'))
 
     # Create resampled timestamp dataframe
     resampled_timestamps = resampled_data.index
@@ -264,9 +264,13 @@ def _load_data(self, down_sample):
         elif type(self.data) is pd.core.frame.DataFrame:
             data_df = self.data
         else:
-            raise Exception('Unable to load data: Please make sure the data is in the correct format')
+            raise Exception('Unable to load data: Please make sure the data is in the correct format.')
     except:
         raise Exception('Unable to load data: Please make sure you have provided the correct filepath.')
+
+    # Check for NaN
+    if data_df[self.v_acc_col_name].isnull().any():
+        raise Exception('Unable to load data: Please remove all NaN values from your data.')
 
     # Convert timestamps to milliseconds. Convert data to m/s^2. Flip data if specified.
     try:

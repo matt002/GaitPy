@@ -94,6 +94,7 @@ class Gaitpy():
         import pandas as pd
         import gaitpy.util as util
         import warnings
+        import numpy as np
 
         print('\tExtracting features...')
 
@@ -141,7 +142,6 @@ class Gaitpy():
                 continue
 
             # Check the orientation of vertical axis
-            import numpy as np
             window_mu = np.mean(bout_data.y)
             if window_mu < 0:
                 pass
