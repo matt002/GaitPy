@@ -94,11 +94,15 @@ class Gaitpy():
         import pandas as pd
         import gaitpy.util as util
         import warnings
+        import numpy as np
 
         print('\tExtracting features...')
 
         # Load data
         y_accel, timestamps = util._load_data(self, self.down_sample)
+
+        # Calculate sensor height
+        sensor_height = util._calculate_sensor_height(subject_height, subject_height_units, sensor_height_ratio)
 
         # If classified gait is provided, load pandas dataframe or h5 file
         if classified_gait is not None:
@@ -133,9 +137,17 @@ class Gaitpy():
             bout_data = pd.DataFrame([])
             bout_data['y'] = pd.DataFrame(y_accel.loc[bout_indices].reset_index(drop=True))
             bout_data['ts'] = timestamps.loc[bout_indices].reset_index(drop=True)
-            if len(bout_data.y) < 15:
+            if len(bout_data.y) <= 15:
                 warnings.warn('There are too few data points between '+str(bout.start_time)+' and '+str(bout.end_time)+', skipping bout...')
                 continue
+
+            # Check the orientation of vertical axis
+            window_mu = np.mean(bout_data.y)
+            if window_mu < 0:
+                pass
+            else:
+                warnings.warn('Data appears to be flipped between '+str(bout.start_time)+' and '+str(bout.end_time)+', flipping axis...')
+                bout_data['y'] = bout_data['y'] * (-1)
 
             # Run CWT Gait Model IC and FC detection
             ic_peaks, fc_peaks = util._cwt(bout_data.y, self.down_sample, ic_prom, fc_prom)
@@ -150,12 +162,13 @@ class Gaitpy():
             optimized_gait = util._height_change_com(optimized_gait, bout_data['ts'], bout_data['y'], self.down_sample)
 
             # Calculate gait features
-            sensor_height = util._calculate_sensor_height(subject_height, subject_height_units, sensor_height_ratio)
             gait_features = util._cwt_feature_extraction(optimized_gait, sensor_height)
 
             # remove center of mass height and gait cycle boolean columns, remove rows with NAs
             gait_features.dropna(inplace=True)
             gait_features.drop(['CoM_height','Gait_Cycle', 'FC_opp_foot'], axis=1, inplace=True)
+            if gait_features.empty:
+                continue
 
             gait_features.insert(0, 'bout_number', bout_n)
             gait_features.insert(1, 'bout_length_sec', bout.bout_length)

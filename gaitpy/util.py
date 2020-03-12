@@ -220,6 +220,8 @@ def _height_change_com(optimized_gait, timestamps, gait_data, sample_rate):
         post_ic_index = timestamps.index[timestamps == optimized_gait.IC[i + 1]].item()
 
         step_raw = gait_data.loc[ic_index:post_ic_index]
+        if len(step_raw) <= 15:
+            continue
         step_detrended = signal.detrend(step_raw)
         if sample_rate >= 40:
             step_filtered = _butter_lowpass_filter(step_detrended, sample_rate)
@@ -241,7 +243,7 @@ def _resample_data(y_accel, timestamps, new_fs):
     data.set_index('ts', inplace=True)
 
     # Resample data
-    resampled_data = pd.DataFrame(data['y'].resample(new_fs).mean())
+    resampled_data = pd.DataFrame(data['y'].resample(new_fs).fillna('nearest'))
 
     # Create resampled timestamp dataframe
     resampled_timestamps = resampled_data.index
@@ -262,9 +264,13 @@ def _load_data(self, down_sample):
         elif type(self.data) is pd.core.frame.DataFrame:
             data_df = self.data
         else:
-            raise Exception('Unable to load data: Please make sure the data is in the correct format')
+            raise Exception('Unable to load data: Please make sure the data is in the correct format.')
     except:
         raise Exception('Unable to load data: Please make sure you have provided the correct filepath.')
+
+    # Check for NaN
+    if data_df[self.v_acc_col_name].isnull().any():
+        raise Exception('Unable to load data: Please remove all NaN values from your data.')
 
     # Convert timestamps to milliseconds. Convert data to m/s^2. Flip data if specified.
     try:
@@ -339,11 +345,12 @@ def _extract_signal_features(data, timestamps, sample_rate, window_length=3.0):
         try:
             features_df = sf._signal_features(window_data_df, total_data_channels, sample_rate)
         except:
-            warnings.warn('Error calculating signal features for 3-second window between '+str(current_win_start)+' and '+str(current_win_end)+'.')
+            warnings.warn('Error calculating signal features for 3-second window between '+str(current_win_start)+' and '+str(current_win_end)+', skipping window...')
             continue
 
         # Discard window if NaN's in feature matrix
         if features_df.isnull().values.any():
+            warnings.warn('Error calculating signal features for 3-second window between '+str(current_win_start)+' and '+str(current_win_end)+', skipping window...')
             continue
 
         # Rename columns with device location

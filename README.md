@@ -133,8 +133,14 @@ The demo script will prompt you to type in a results directory. Following the ru
 results directory (less than 250kB of data will be saved). Running the demo should take less than a minute, though this 
 may vary depending on your machine. 
 
+## Contributing to the project
+Please help contribute to the project! See the [CONTRIBUTING.md](https://github.com/matt002/GaitPy/blob/master/CONTRIBUTING.md) file for details.
+
 ## Acknowledgements
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
+
+## Author
+Matthew Czech
 
 ## License
 GaitPy is under the MIT license
