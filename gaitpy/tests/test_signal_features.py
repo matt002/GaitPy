@@ -1,9 +1,9 @@
 import os
-from pandas.util.testing import assert_frame_equal
+from pandas.testing import assert_frame_equal
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 from gaitpy.signal_features import *
-from .test_gait import run_gaitpy
+from test_gait import run_gaitpy
 
 def test__signal_features():
     # Set source and destination directories
