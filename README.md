@@ -5,6 +5,9 @@ Read and process raw vertical accelerometry data from a sensor on the lower back
 
 [![Build Status](https://travis-ci.com/matt002/GaitPy.svg?branch=master)](https://travis-ci.com/matt002/GaitPy)
 
+## Disclaimer
+This package is not maintained anymore. I would recommend using Scikit Digital Health, a python package that includes a newer version GaitPy and various other sensor processing modules (https://github.com/PfizerRD/scikit-digital-health).
+
 ## Overview
 GaitPy provides python functions to read accelerometry data from a single lumbar-mounted sensor and estimate clinical 
 characteristics of gait. 
